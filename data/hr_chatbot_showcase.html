@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise HR Virtual Assistant | AI Experiment</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #4f46e5;
+            --accent: #7c3aed;
+            --light: #f9fafb;
+            --dark: #1e293b;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f9fafb;
+            color: #1e293b;
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem 0;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin-bottom: 2rem;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 0.8rem 1.8rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .cta-button:hover {
+            background-color: #6d28d9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .features {
+            padding: 4rem 0;
+            background-color: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2rem;
+            color: var(--dark);
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .feature-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+        
+        .business-model {
+            padding: 4rem 0;
+            background-color: #f8fafc;
+        }
+        
+        .bmc-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .bmc-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .bmc-title {
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 0.5rem;
+        }
+        
+        .timeline {
+            padding: 4rem 0;
+            background-color: white;
+        }
+        
+        .timeline-container {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .timeline-container::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: var(--primary);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            right: -12px;
+            background-color: white;
+            border: 4px solid var(--primary);
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        .left {
+            left: 0;
+        }
+        
+        .right {
+            left: 50%;
+        }
+        
+        .right::after {
+            left: -12px;
+        }
+        
+        .timeline-content {
+            padding: 20px 30px;
+            background-color: white;
+            position: relative;
+            border-radius: 6px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .timeline-content h3 {
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .chat-demo {
+            background-color: var(--light);
+            padding: 4rem 0;
+        }
+        
+        .chat-container {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .chat-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+        
+        .chat-messages {
+            padding: 1rem;
+            height: 300px;
+            overflow-y: auto;
+        }
+        
+        .message {
+            margin-bottom: 1rem;
+            padding: 0.8rem;
+            border-radius: 8px;
+            max-width: 80%;
+        }
+        
+        .user-message {
+            background-color: #e9ecef;
+            margin-left: auto;
+        }
+        
+        .bot-message {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .chat-input {
+            padding: 1rem;
+            border-top: 1px solid #e9ecef;
+            display: flex;
+        }
+        
+        .chat-input input {
+            flex: 1;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-right: 0.5rem;
+        }
+        
+        .chat-input button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 0.8rem 1rem;
+            cursor: pointer;
+        }
+        
+        .swot {
+            padding: 4rem 0;
+            background-color: white;
+        }
+        
+        .swot-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .swot-card {
+            padding: 2rem;
+            border-radius: 8px;
+        }
+        
+        .strengths {
+            background-color: rgba(16, 185, 129, 0.1);
+            border: 1px solid var(--success);
+        }
+        
+        .weaknesses {
+            background-color: rgba(239, 68, 68, 0.1);
+            border: 1px solid var(--danger);
+        }
+        
+        .opportunities {
+            background-color: rgba(59, 130, 246, 0.1);
+            border: 1px solid var(--primary);
+        }
+        
+        .threats {
+            background-color: rgba(245, 158, 11, 0.1);
+            border: 1px solid var(--warning);
+        }
+        
+        .swot-title {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+        
+        .swot-list {
+            list-style-position: inside;
+        }
+        
+        .swot-list li {
+            margin-bottom: 0.5rem;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        @media (max-width: 768px) {
+            .feature-grid, .bmc-container, .swot-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .timeline-container::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item::after {
+                left: 18px;
+            }
+            
+            .left::after, .right::after {
+                left: 18px;
+            }
+            
+            .right {
+                left: 0%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container hero">
+            <h1>Enterprise HR Virtual Assistant</h1>
+            <p>An AI-powered chatbot designed to streamline HR operations by providing 24/7 employee support for common HR inquiries, policy questions, benefits administration, and onboarding assistance.</p>
+            <a href="#" class="cta-button">Request Demo</a>
+        </div>
+    </header>
+    
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Key Benefits</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">⏱️</div>
+                    <h3 class="feature-title">Instant Responses</h3>
+                    <p>Reduce response time from days to seconds with 24/7 availability for employee inquiries.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3 class="feature-title">HR Efficiency</h3>
+                    <p>Free up to 73% of HR department time spent on routine queries for more strategic work.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📝</div>
+                    <h3 class="feature-title">Consistent Information</h3>
+                    <p>Ensure all employees receive accurate, consistent information about policies and benefits.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3 class="feature-title">Continuous Learning</h3>
+                    <p>AI system learns from interactions to improve responses and adapt to your organization's needs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="business-model">
+        <div class="container">
+            <h2 class="section-title">Business Model Canvas</h2>
+            <div class="bmc-container">
+                <div class="bmc-card">
+                    <h3 class="bmc-title">Value Proposition</h3>
+                    <p>Always-available HR support that reduces response time from days to seconds while maintaining consistency and accuracy in information delivery.</p>
+                </div>
+                <div class="bmc-card">
+                    <h3 class="bmc-title">Customer Segments</h3>
+                    <p>Mid to large-sized enterprises (500+ employees), organizations with distributed workforces, and companies undergoing rapid growth.</p>
+                </div>
+                <div class="bmc-card">
+                    <h3 class="bmc-title">Revenue Streams</h3>
+                    <p>SaaS subscription model with tiered pricing ($3-15 per employee per month) plus implementation services and premium support packages.</p>
+                </div>
+                <div class="bmc-card">
+                    <h3 class="bmc-title">Key Resources</h3>
+                    <p>Large language models fine-tuned for HR, natural language understanding, and secure cloud infrastructure with enterprise-grade protection.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="chat-demo">
+        <div class="container">
+            <h2 class="section-title">See It In Action</h2>
+            <div class="chat-container">
+                <div class="chat-header">
+                    <h3>HR Assistant</h3>
+                </div>
+                <div class="chat-messages">
+                    <div class="message bot-message">
+                        Hello! I'm your HR Virtual Assistant. How can I help you today?
+                    </div>
+                    <div class="message user-message">
+                        How many vacation days do I have left this year?
+                    </div>
+                    <div class="message bot-message">
+                        Based on your profile, you have 12 vacation days remaining for 2023. Your last PTO was on August 15-17 (3 days). Would you like to request time off?
+                    </div>
+                    <div class="message user-message">
+                        What's our policy on working remotely?
+                    </div>
+                    <div class="message bot-message">
+                        According to our current Remote Work Policy (updated March 2023), employees can work remotely up to 3 days per week with manager approval. For extended remote periods, please submit a formal request through the HR portal at least 2 weeks in advance.
+                    </div>
+                </div>
+                <div class="chat-input">
+                    <input type="text" placeholder="Type your question...">
+                    <button>Send</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="timeline">
+        <div class="container">
+            <h2 class="section-title">Development Roadmap</h2>
+            <div class="timeline-container">
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h3>Phase 1: Core Functionality</h3>
+                        <p>Develop the core NLP engine with HR domain knowledge, build integration with one major HRIS platform, and conduct initial pilots.</p>
+                        <p><strong>Timeline:</strong> 6 months</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <h3>Phase 2: Enterprise Features</h3>
+                        <p>Enhance security, add multiple HRIS integrations, develop onboarding workflows, and launch paid customer pilots.</p>
+                        <p><strong>Timeline:</strong> 6-9 months</p>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h3>Phase 3: Advanced Capabilities</h3>
+                        <p>Implement continuous learning, add workflow automation, develop multi-language support, and scale go-to-market efforts.</p>
+                        <p><strong>Timeline:</strong> 9-12 months</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="swot">
+        <div class="container">
+            <h2 class="section-title">SWOT Analysis</h2>
+            <div class="swot-container">
+                <div class="swot-card strengths">
+                    <h3 class="swot-title">Strengths</h3>
+                    <ul class="swot-list">
+                        <li>Addresses universal HR pain points with quantifiable ROI</li>
+                        <li>Scalable with increasing value through continuous learning</li>
+                        <li>Complementary to existing HR technology investments</li>
+                        <li>Multi-tiered revenue model with expansion opportunities</li>
+                    </ul>
+                </div>
+                <div class="swot-card weaknesses">
+                    <h3 class="swot-title">Weaknesses</h3>
+                    <ul class="swot-list">
+                        <li>Significant upfront investment in domain-specific AI</li>
+                        <li>Dependency on quality of customer HR documentation</li>
+                        <li>Complex enterprise sales cycle with multiple stakeholders</li>
+                        <li>Potential resistance from HR professionals</li>
+                    </ul>
+                </div>
+                <div class="swot-card opportunities">
+                    <h3 class="swot-title">Opportunities</h3>
+                    <ul class="swot-list">
+                        <li>Growing acceptance of AI in workplace applications</li>
+                        <li>Remote work trends increasing demand for digital HR</li>
+                        <li>Expansion into adjacent HR workflows</li>
+                        <li>International expansion with multilingual capabilities</li>
+                    </ul>
+                </div>
+                <div class="swot-card threats">
+                    <h3 class="swot-title">Threats</h3>
+                    <ul class="swot-list">
+                        <li>HR platform providers developing similar capabilities</li>
+                        <li>Privacy regulation changes affecting data handling</li>
+                        <li>Economic downturns reducing HR technology budgets</li>
+                        <li>Resistance to AI adoption in sensitive employee matters</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <p>© 2023 Enterprise HR Virtual Assistant | AI Experiment</p>
+            <p>This is a concept demonstration based on the business model canvas analysis framework</p>
+        </div>
+    </footer>
+</body>
+</html> 
